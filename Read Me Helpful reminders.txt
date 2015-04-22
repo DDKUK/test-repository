@@ -13,6 +13,10 @@ Adding Webpages:
 
 Create a public folder next to the app.js file, this becomes the ROOT webdirectory.
 Create an Index.html / any other webpages there.
+The name of the webpages folder is defined in the app.js file
+
+	var dirPublic = path.join( __dirname, "public" );
+	app.use( express.static( dirPublic ) );
 
 Testing Website:
 
