@@ -1,0 +1,11 @@
+Quick Instructions
+
+Install Node Software (this acts as a server that runs your app)
+
+Goto the directory of the app.js file in windows command line.
+
+from the directory use 'npm install -d' to install all elements mentioned 
+
+in the 'package.json' file
+
+type 'node app' to run app. (it appears at node.exe in running processes)
