@@ -1,6 +1,7 @@
 var express = require("express"),
 	bodyParser = require("body-parser"),
 	path = require("path"),
+	_ = require("underscore"),
 	models = require("./public/js/models");
 
 var app = module.exports = express();
@@ -15,6 +16,12 @@ var users = [
 	new (models.UserModel)("Matt","Designer")
 ];
 
+var searchResults = [];
+_.each("a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".split(","), function( char ){
+	searchResults.push( new (models.SearchResultModel)("Store "+char,"Location "+char) );
+})
+
+//expose our end points
 app.get("/users", function( req, res, next ){
 	res.send( users );
 });
@@ -22,6 +29,7 @@ app.get("/users", function( req, res, next ){
 app.post("/user/:userId", function( req, res, next ){
 	//get the userId from the path
 	var _id = req.params.userId;
+	
 	//get the user with this ID and then update it
 	users.forEach( function( user ){
 		if( user._id == _id ){
@@ -33,6 +41,18 @@ app.post("/user/:userId", function( req, res, next ){
 	res.send({
 		status: "ok"
 	});
+});
+
+app.post("/search", function( req, res, next ){
+	var output = [];
+	
+	_.each( searchResults, function( searchResult ){
+		if( Math.random() > 0.5 ){
+			output.push( searchResult );
+		}
+	} );
+	
+	res.send( output );
 });
 
 //expose public directory

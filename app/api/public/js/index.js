@@ -2,6 +2,24 @@ function Api(){
 	
 }
 
+Api.prototype.search = function( term, cb ){
+	this.post( "/search", { term:term }, function( err, data ){
+		
+		if( data && Array.isArray( data ) ){
+			//parse through each item
+			for( var i = 0; i < data.length; i++ ){
+				//convert the data to an instance of SearchResultModel
+				var user = new (models.SearchResultModel)();
+				user.parseJSON( data[i] );
+				//now overwrite the data with the SearchResultModel instance
+				data[i] = user;
+			}
+		}
+		
+		cb( err, data );
+	} );
+}
+
 Api.prototype.getUsers = function( cb ){
 	this.get( "/users", function( err, data ){
 		if( data && Array.isArray( data ) ){
@@ -47,6 +65,7 @@ Api.prototype.request = function( type, url, data, cb ){
 		dataType: data ? "json" : undefined,
 	}).done( function( data, success ){
 		//standarise the response
+		console.log("result", arguments);
 		cb(
 			success === "success" ? true : false,
 			data
