@@ -12,7 +12,9 @@ app.set("views", dirViews );
 app.get("/", function( req, res, next ){
 	res.redirect("/home");
 } );
+//bind our modules
 app.use( "/home", require("./app/home") );
+app.use( "/api", require("./app/api") );
 //expose public directory
 var dirPublic = path.join( __dirname, "public" );
 app.use( express.static( dirPublic ) );

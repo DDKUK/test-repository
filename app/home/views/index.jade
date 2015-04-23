@@ -2,7 +2,19 @@ include ../../../views/default.jade
 
 block body
 	h1 Home
-	p This is home
+	
+	ul(data-bind="foreach:users")
+		li: a(data-bind="text:name,click:$root.selectedUser")
+		
+	//ko if: selectedUser
+	
+	hr
+	p
+		strong(data-bind="text:selectedUser().name")
+		|:&nbsp;
+		span(data-bind="text:selectedUser().role")
+		
+	// /ko
 	
 block footer
 	+addScript("/home/js/index.js")
