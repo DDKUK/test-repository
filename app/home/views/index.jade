@@ -7,14 +7,25 @@ block body
 		li: a(data-bind="text:name,click:$root.selectedUser")
 		
 	//ko if: selectedUser
-	
 	hr
+	
+	p:  strong ID: 
+		strong(data-bind="text:selectedUser()._id")
+	
 	p
-		strong(data-bind="text:selectedUser().name")
-		|:&nbsp;
-		span(data-bind="text:selectedUser().role")
+		span.label Name:
+		input(data-bind="value:selectedUser().name")
 		
+		span.label Role:
+		input(data-bind="value:selectedUser().role")
+	
+	
+	p: strong(data-bind="text:selectedUser().getDescription()")
+	
+	a(href="#",data-bind="click:$root.saveUser") Save Changes
 	// /ko
 	
 block footer
+	+addScript("/api/js/models.js")
+	+addScript("/api/js/index.js")
 	+addScript("/home/js/index.js")

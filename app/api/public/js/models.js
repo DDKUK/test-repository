@@ -14,6 +14,7 @@ if(typeof module !== "undefined" && module.exports){
 		var self = this;
 		
 		self.parseJSON({
+			_id : generateRandomId(),
 			name : name,
 			role : role
 		})
@@ -22,6 +23,7 @@ if(typeof module !== "undefined" && module.exports){
 	UserModel.prototype.parseJSON = function( data ){
 		var self = this;
 		
+		self._id = data._id || "";
 		self.name = data.name || "";
 		self.role = data.role || "";
 	}
@@ -32,5 +34,17 @@ if(typeof module !== "undefined" && module.exports){
 		return self.name + " is a kick ass " + self.role;
 	}
 	
+	
+	function generateRandomId( len ){
+		var output = "";
+		var chars = "abcdefghijklmnopqrstuvwxyz01234567890";
+		len = len || 10;
+		
+		while( output.length < len ){
+			output += chars[ Math.floor( Math.random() * chars.length ) ];
+		}
+		
+		return output;
+	}
 	
 })( target );
